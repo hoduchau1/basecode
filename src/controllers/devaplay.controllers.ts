@@ -94,6 +94,10 @@ export const postKickPlayerController = async (req: Request, res: Response, next
 }
 
 
+////////////////////////////////// SEAMLESS
+
+
+
 
 export const getBalanceController = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -101,7 +105,7 @@ export const getBalanceController = async (req: Request, res: Response, next: Ne
     const playerCode = req.query.playerCode?.toString()
 
     if (!playerCode) {
-      return next(new BadRequestError('Thiếu playerCodec'));
+      return next(new BadRequestError('Thiếu playerCode'));
     }
 
     const data = await devaplayseamlessService.getBalance({playerCode})
@@ -117,7 +121,7 @@ export const getBalanceController = async (req: Request, res: Response, next: Ne
 
 export const postTransactionController = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const data = await devaplayseamlessService.postTransaction(req.body)
+    const data = await devaplayseamlessService.PostprocessTransaction(req.body)
 
     return new SuccessWithStatus({
       message: 'POST Transaction successful',
@@ -127,6 +131,10 @@ export const postTransactionController = async (req: Request, res: Response, nex
   } catch (err) {
     next(err);  }
 }
+
+/////////////////////////////
+
+
 
 
 export const getTransactionUuidController = async (req: Request, res: Response, next: NextFunction) => {

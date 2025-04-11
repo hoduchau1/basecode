@@ -11,6 +11,7 @@ export const globalErrorHandler: ErrorRequestHandler = (
     req: Request,
     res: Response,
     next: NextFunction
+    
 ) => {
     let statusCode = err.statusCode || 500
     let message = err.message || 'Something went wrong'
@@ -22,7 +23,8 @@ export const globalErrorHandler: ErrorRequestHandler = (
     const errorResponse = new ErrorWithStatus({
         status: statusCode,
         message,
-        error: !isProduction ? err.stack : undefined
+        error: !isProduction ? err.stack : undefined,
+        data: err.data
     })
 
     if (UseSoftError) {
