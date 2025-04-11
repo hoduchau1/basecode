@@ -2,6 +2,7 @@ import { db, SqlParameter } from '../databases/mssql.database'
 import mssql from 'mssql'
 import { TYPES } from 'mssql'
 import { USERS_STORE_PROCEDURE } from '../constants/procedures'
+//ki hieu r_ la ki hieu du lieu ben trong db
 
 export class UsersRepository {
     async login({

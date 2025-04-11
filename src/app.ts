@@ -6,6 +6,9 @@ import dotenv from 'dotenv';
 import helmet from 'helmet';
 import { globalErrorHandler } from "./controllers/globalErrorHandler";
 import rateLimit from 'express-rate-limit';
+import dns from 'dns';
+import { NotFoundError } from './utils/errors';
+
 
 dotenv.config();
 const app = express();
@@ -36,16 +39,16 @@ app.use(limiter);
 
 
 app.use('/api/v1', userRoutes);
-app.use((req, res, next) => {
-    res.status(404).send('404 Not Found');
-});
+// app.use((req, res, next) => {
+//     res.status(404).send('404 Not Found');
+// });
 
 app.use((req, res, next) => {
-    res.status(404).json({
-        message: 'Route not found',
-        status: 404
-    });
+  next(new NotFoundError('Route not found'));
 });
+
+
+dns.setDefaultResultOrder('ipv4first');
 
 app.use(globalErrorHandler);
 

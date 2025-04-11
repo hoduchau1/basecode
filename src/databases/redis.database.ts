@@ -5,6 +5,7 @@ type RedisClient = ReturnType<typeof createClient> | ReturnType<typeof createClu
 let redisClient: RedisClient;
 
 export async function connectRedis() {
+    //ko sai cai cluster nay
     if (config.mode === 'cluster') {
         const nodes = config.clusterNodes.split(',').map((node) => {
             const [host, port] = node.split(':');
